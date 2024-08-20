@@ -4,7 +4,7 @@ Please follow step by step:
 
 2. open your init.py and add this line of code : nuke.pluginAddPath("./HELPER_TOOLS")
 
-3.Open Menu.py file from HELPER_TOOLS, and edit your file path :
+3.Open Menu.py file from HELPER_TOOLS folder, and edit your file path :
   
 
 example'''''
