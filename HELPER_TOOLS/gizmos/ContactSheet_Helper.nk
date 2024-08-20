@@ -1,0 +1,264 @@
+set cut_paste_input [stack 0]
+version 15.1 v1
+push $cut_paste_input
+push 0
+Group {
+ inputs 2
+ name ContactSheet_Helper
+ tile_color 0x999999ff
+ note_font "Verdana Bold"
+ selected true
+ xpos 185
+ ypos 221
+ addUserKnob {20 User}
+ addUserKnob {4 style l Style M {Top/Bottom Left/Right ""}}
+ addUserKnob {6 text l "Text Overlay" -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 _1 l "" +STARTLINE T "Developed by Mazharul Islam Shuvo @2022\nwww.shuvofx.com\n\n"}
+}
+ Input {
+  inputs 0
+  name InputA
+  xpos -435
+  ypos -289
+  number 1
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle1
+  xpos -435
+  ypos -234
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "INPUT A"
+  old_message {{73 78 80 85 84 32 65}
+    }
+  box {0 0 {input.width} {input.height}}
+  transforms {{0 2}
+    }
+  cursor_position 7
+  center {1920 1080}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 944}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1920 1080 0 0 1 1 0 0 0 0}
+    }
+  color {1 0.7499961853 0 1}
+  name Text1
+  xpos -435
+  ypos -205
+  disable {{!text}}
+ }
+set N71ef9400 [stack 0]
+ Reformat {
+  black_outside true
+  name Reformat1
+  xpos -436
+  ypos -175
+ }
+ Crop {
+  box {0 0 {input.width} {input.height}}
+  reformat true
+  crop false
+  name Crop1
+  xpos -436
+  ypos -124
+ }
+ BlackOutside {
+  name BlackOutside1
+  xpos -436
+  ypos -68
+ }
+set Ne174ec00 [stack 0]
+ Crop {
+  box {0 0 {input.width*2 x1 4096} {input.height x1 2095}}
+  reformat true
+  name CropVart
+  xpos -436
+  ypos 56
+ }
+ Dot {
+  name Dot4
+  xpos -402
+  ypos 382
+ }
+ Input {
+  inputs 0
+  name InputB
+  xpos -248
+  ypos -270
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  xpos -248
+  ypos -236
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "INPUT B"
+  old_message {{73 78 80 85 84 32 66}
+    }
+  box {0 0 {input.width} {input.height}}
+  transforms {{0 2}
+    }
+  cursor_position 7
+  center {1920 1080}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 944}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1920 1080 0 0 1 1 0 0 0 0}
+    }
+  color {1 0.7499961853 0 1}
+  background_opacity 0.41
+  name Text2
+  xpos -248
+  ypos -212
+  disable {{!text}}
+ }
+ Reformat {
+  black_outside true
+  name Reformat2
+  selected true
+  xpos -248
+  ypos -172
+ }
+ Crop {
+  box {{parent.Crop1.box} {parent.Crop1.box} {parent.Crop1.box} {parent.Crop1.box}}
+  reformat true
+  crop false
+  name Crop2
+  xpos -247
+  ypos -125
+ }
+ BlackOutside {
+  name BlackOutside2
+  xpos -247
+  ypos -75
+ }
+set Nb64d7000 [stack 0]
+ Dot {
+  name Dot3
+  xpos 24
+  ypos -72
+ }
+ Crop {
+  box {0 0 {input.width*2 x1 4096} {input.height x1 2095}}
+  reformat true
+  name CropVart1
+  xpos -10
+  ypos 54
+ }
+ Transform {
+  translate {{center.x} 0}
+  center {{input.width/2} {input.height/2}}
+  shutteroffset centred
+  name Transform4
+  xpos -10
+  ypos 94
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -10
+  ypos 379
+ }
+ Crop {
+  box {0 0 {input.width} {input.height}}
+  name Crop4
+  xpos -10
+  ypos 437
+ }
+ Dot {
+  name Dot5
+  xpos 24
+  ypos 518
+ }
+push $Nb64d7000
+ Crop {
+  box {0 0 {input.width x1 4096} {input.height*2 x1 2095}}
+  name Crop1HOR1
+  xpos -247
+  ypos 56
+ }
+ Transform {
+  translate {0 {input.height}}
+  center {{input.width/2 x1 0} {input.height/2 x1 0}}
+  name Transform1
+  xpos -247
+  ypos 92
+ }
+push $Ne174ec00
+ Dot {
+  name Dot1
+  xpos -576
+  ypos -65
+ }
+ Crop {
+  box {0 0 {input.width x1 4096} {input.height*2 x1 2095}}
+  reformat true
+  name Crop1HOR
+  xpos -610
+  ypos 56
+ }
+ Dot {
+  name Dot2
+  xpos -576
+  ypos 438
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge1
+  xpos -247
+  ypos 435
+ }
+ Crop {
+  box {0 0 {input.width} {input.height}}
+  name Crop3
+  xpos -247
+  ypos 459
+ }
+ Switch {
+  inputs 2
+  which {{style}}
+  patterns {
+   {i0 ""}
+   {i1 ""}
+  }
+  name Switch1
+  xpos -247
+  ypos 507
+ }
+ BlackOutside {
+  name BlackOutside3
+  xpos -247
+  ypos 543
+ }
+ Output {
+  name Output1
+  xpos -247
+  ypos 584
+ }
+push $N71ef9400
+ Viewer {
+  frame_range 1-100
+  monitorOutNDISenderName "NukeX - untitled - Viewer1"
+  name Viewer1
+  xpos -107
+  ypos -163
+ }
+end_group

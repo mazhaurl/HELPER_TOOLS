@@ -1,0 +1,29 @@
+set cut_paste_input [stack 0]
+version 14.0 v1
+push $cut_paste_input
+Write {
+ file "\[file dirname \[value root.name]]/PRECOMP/DENOISE/\[lindex \[split \[lindex \[split \[file tail \[value root.name]] _] end] .] end-1]/\[lindex \[split \[file tail \[value root.name]] .] end-1]_DENOISE.####.exr"
+ file_type exr
+ first_part rgba
+ create_directories true
+ checkHashOnRead false
+ version 5
+ name WRITE_HELPER1
+ knobChanged "\n\nwriteNode=nuke.thisNode()\n\n\nif writeNode.knob('writeMaster').value()== 'DENOISE':\n\n    writeNode\['file'].setValue('\[file dirname \[value root.name]]/PRECOMP/DENOISE/\[lindex \[split \[lindex \[split \[file tail \[value root.name]] _] end] .] end-1]/\[lindex \[split \[file tail \[value root.name]] .] end-1]_DENOISE.####.exr')\n\nelse:\n    pass\n\nif writeNode.knob('writeMaster').value()== 'PRECOMP':\n\n    writeNode\['file'].setValue('\[file dirname \[value root.name]]/PRECOMP/\[value this.Precomp]/\[lindex \[split \[lindex \[split \[file tail \[value root.name]] _] end] .] end-1]/\[lindex \[split \[file tail \[value root.name]] .] end-1]_\[value this.Precomp].####.exr')\n\nelse:\n    pass\n\n\nif writeNode.knob('writeMaster').value()== 'MOV':\n\n    writeNode\['file'].setValue('\[file dirname \[value root.name]]/RENDER/MOV/\[lindex \[split \[lindex \[split \[file tail \[value root.name]] _] end] .] end-1]/\[lindex \[split \[file tail \[value root.name]] .] end-1].MOV')\n\nelse:\n    pass\n\n\nif writeNode.knob('writeMaster').value()== 'EXR':\n\n    writeNode\['file'].setValue('\[file dirname \[value root.name]]/RENDER/EXR/\[lindex \[split \[lindex \[split \[file tail \[value root.name]] _] end] .] end-1]/\[lindex \[split \[file tail \[value root.name]] .] end-1].####.exr')\n\nelse:\n    pass\n"
+ tile_color 0xfff50cff
+ label "\nRender Type: \[value writeMaster]\n\nFile Type:\[value file_type]\n\n"
+ note_font Verdana
+ note_font_size 9
+ selected true
+ xpos -283
+ ypos -112
+ lifetimeStart 1
+ lifetimeEnd 100
+ addUserKnob {20 WriteHelper l "Write Helper"}
+ addUserKnob {4 writeMaster l "Write Master" M {DENOISE PRECOMP MOV EXR}}
+ addUserKnob {26 ""}
+ addUserKnob {1 Precomp l "Precomp Name"}
+ Precomp abcd
+ addUserKnob {26 ""}
+ addUserKnob {26 _1 l "" +STARTLINE T "Mazharul Islam Shuvo @2024\nwww.shuvofx.com"}
+}

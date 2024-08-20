@@ -1,0 +1,482 @@
+#! C:/Program Files/Nuke14.0v1/nuke-14.0.1.dll -nx
+version 14.0 v1
+Gizmo {
+ inputs 2
+ knobChanged "\nnode= nuke.thisNode() \n\n\nif node.knob('check').value()== 'GRAIN':\n\n    node.knob('difference_grain').setVisible(True)\n    \n    node.knob('grain_advance').setVisible(True)\n\n    node.knob('gainup_grain').setVisible(True)\n\nelse:\n    node.knob('difference_grain').setVisible(False)\n    \n    node.knob('grain_advance').setVisible(False)\n\n    node.knob('gainup_grain').setVisible(False)\n\n\nif node.knob('check').value()== 'COMP AREA':\n    node.knob('plate_Compare').setVisible(True)\n    \n    node.knob('plate_dif_comp').setVisible(True)\n    node.knob('color_overley').setVisible(True)\n\n    if node.knob('color_overley').value() == True :\n\n        node.knob('comp_gain').setVisible(True)\n    \n        node.knob('comp_color').setVisible(True)\n\n\n    else:\n\n        node.knob('comp_gain').setVisible(False)\n    \n        node.knob('comp_color').setVisible(False)\n\n\n\nelse:\n\n\n    node.knob('plate_Compare').setVisible(False)\n    \n    node.knob('plate_dif_comp').setVisible(False)\n    node.knob('color_overley').setVisible(False)\n\n\n\n\nif node.knob('check').value()== 'SATURATION':\n\n    node.knob('sat_compare').setVisible(True)\n    \n    node.knob('saturation_t').setVisible(True)\n\n    \n\nelse:\n    node.knob('sat_compare').setVisible(False)\n    \n    node.knob('saturation_t').setVisible(False)\n\n    \n\n\n\n"
+ tile_color 0x111111ff
+ label "-----------------\n \[value check] "
+ note_font "Verdana Bold"
+ note_font_size 10
+ note_font_color 0x111111ff
+ lock_connections true
+ addUserKnob {20 User}
+ addUserKnob {4 check l "CHECK IT" M {"COMP AREA" SATURATION GRAIN NAN INF "" "" "" "" "" "" "" "" "" "" "" "" "" ""}}
+ addUserKnob {6 sat_compare l Compare +HIDDEN +STARTLINE}
+ addUserKnob {7 saturation_t l Saturation +HIDDEN R 0 5}
+ saturation_t 3
+ addUserKnob {6 plate_Compare l Compare +STARTLINE}
+ addUserKnob {6 plate_dif_comp l Difference +STARTLINE}
+ addUserKnob {6 color_overley l "Color Overley" +STARTLINE}
+ addUserKnob {7 comp_gain l Gain +HIDDEN R 0 10}
+ comp_gain 1
+ addUserKnob {7 comp_color l "Change Color" +HIDDEN R -180 180}
+ comp_color 1
+ addUserKnob {7 saturation_ctrl l "Saturation " +HIDDEN R 0 5}
+ addUserKnob {7 gain_lum l Gain +HIDDEN R -10 10}
+ addUserKnob {7 change_color l "Change Color" +HIDDEN}
+ addUserKnob {7 gain_ctrl l "Gain " +HIDDEN R 0 5}
+ addUserKnob {6 difference_grain l Difference +HIDDEN +STARTLINE}
+ addUserKnob {6 grain_advance l "Advance Check" +HIDDEN +STARTLINE}
+ addUserKnob {7 gainup_grain l Gain +HIDDEN R 0 20}
+ gainup_grain 5
+ addUserKnob {26 ""}
+ addUserKnob {26 _1 l "" +STARTLINE T "Md Mazharul Islam@2023\nwww.shuvofx.com"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x8e388e00
+  label "INF AND NAN CHECK"
+  note_font_size 42
+  xpos 3524
+  ypos 716
+  bdwidth 657
+  bdheight 721
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x7171c600
+  label Grain
+  note_font_size 42
+  xpos 161
+  ypos -189
+  bdwidth 1075
+  bdheight 942
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0xaaaaaa00
+  label Comp
+  note_font_size 42
+  xpos 1507
+  ypos 603
+  bdwidth 682
+  bdheight 1343
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x7171c600
+  label Saturation
+  note_font_size 42
+  xpos 2708
+  ypos 742
+  bdwidth 560
+  bdheight 958
+ }
+ Input {
+  inputs 0
+  name plate
+  xpos 1146
+  ypos -110
+  number 1
+ }
+set N334fd400 [stack 0]
+ PostageStamp {
+  name COMP_A
+  xpos 2099
+  ypos 683
+  hide_input true
+  postage_stamp true
+ }
+ Dot {
+  name Dot24
+  xpos 2133
+  ypos 898
+ }
+set N334fdc00 [stack 0]
+ Dot {
+  name Dot23
+  xpos 3212
+  ypos 898
+ }
+set N34734000 [stack 0]
+ Dot {
+  name Dot9
+  xpos 3603
+  ypos 898
+ }
+set N34734400 [stack 0]
+ Dot {
+  name Dot10
+  xpos 4033
+  ypos 898
+ }
+ Expression {
+  expr0 isinf(r)?1:0
+  expr1 isinf(g)?1:0
+  expr2 isinf(b)?1:0
+  expr3 isinf(r)?1:0
+  name Expression6
+  label "which pixels are inf"
+  xpos 3999
+  ypos 1103
+ }
+ Blur {
+  size 37
+  name Blur5
+  xpos 3999
+  ypos 1286
+ }
+ Grade {
+  white 32
+  name Grade6
+  xpos 3999
+  ypos 1322
+ }
+ Dot {
+  name Dot20
+  xpos 4033
+  ypos 2340
+ }
+push $N34734400
+ Expression {
+  expr0 isnan(r)?1:0
+  expr1 isnan(g)?1:0
+  expr2 isnan(b)?1:0
+  name Expression3
+  label "which pixels are NaN"
+  xpos 3569
+  ypos 1102
+ }
+ Blur {
+  size 37
+  name Blur4
+  xpos 3569
+  ypos 1317
+ }
+ Grade {
+  white 32
+  name Grade5
+  xpos 3569
+  ypos 1353
+ }
+ Dot {
+  name Dot15
+  xpos 3603
+  ypos 2375
+ }
+ Input {
+  inputs 0
+  name comp
+  xpos 340
+  ypos -63
+ }
+set N34768c00 [stack 0]
+ Dot {
+  name Dot11
+  xpos 374
+  ypos 32
+ }
+set N34769000 [stack 0]
+ Dot {
+  name Dot12
+  xpos 205
+  ypos 32
+ }
+ Blur {
+  size 1
+  name Blur2
+  xpos 171
+  ypos 129
+ }
+push $N34769000
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge4
+  xpos 340
+  ypos 135
+ }
+ Grade {
+  white {{parent.Grade1.white}}
+  name Grade2
+  xpos 340
+  ypos 184
+ }
+set N34796000 [stack 0]
+ Dot {
+  name Dot1
+  xpos 506
+  ypos 187
+ }
+ Dot {
+  name Dot2
+  xpos 506
+  ypos 409
+ }
+push $N334fd400
+ Dot {
+  name Dot8
+  xpos 1180
+  ypos 5
+ }
+set N34796c00 [stack 0]
+ Dot {
+  name Dot6
+  xpos 1011
+  ypos 5
+ }
+ Blur {
+  size 1
+  name Blur1
+  xpos 977
+  ypos 102
+ }
+push $N34796c00
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge2
+  xpos 1146
+  ypos 108
+ }
+ Grade {
+  white {{"parent.gainup_grain *5"}}
+  name Grade1
+  xpos 1146
+  ypos 182
+ }
+ Dot {
+  name Dot3
+  xpos 1180
+  ypos 304
+ }
+set N347c4000 [stack 0]
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge1
+  xpos 1146
+  ypos 406
+ }
+ Grade {
+  white 300
+  name Grade3
+  xpos 1146
+  ypos 541
+  disable {{!parent.grain_advance}}
+ }
+ Dot {
+  name Dot4
+  xpos 1180
+  ypos 716
+ }
+push $N347c4000
+push $N34796000
+ Switch {
+  inputs 2
+  which {{parent.difference_grain}}
+  name Switch1
+  xpos 340
+  ypos 301
+ }
+ Switch {
+  inputs 2
+  which {{parent.grain_advance}}
+  name Switch2
+  xpos 340
+  ypos 725
+ }
+ Dot {
+  name Dot17
+  xpos 374
+  ypos 2337
+ }
+push $N34734000
+ Saturation {
+  saturation {{parent.saturation_t}}
+  name Saturation2
+  xpos 3178
+  ypos 1445
+ }
+ Dot {
+  name Dot27
+  xpos 3212
+  ypos 1675
+ }
+push $N34768c00
+ PostageStamp {
+  name Plate
+  xpos 1700
+  ypos 689
+  hide_input true
+  postage_stamp true
+ }
+set N347f8400 [stack 0]
+ Dot {
+  name Dot25
+  xpos 1734
+  ypos 822
+ }
+set N347f8800 [stack 0]
+ Dot {
+  name Dot22
+  xpos 2752
+  ypos 822
+ }
+ Saturation {
+  saturation {{parent.Saturation2.saturation}}
+  name Saturation1
+  xpos 2718
+  ypos 1448
+ }
+ Switch {
+  inputs 2
+  which {{parent.sat_compare}}
+  name Switch6
+  xpos 2718
+  ypos 1672
+ }
+ Dot {
+  name Dot26
+  xpos 2752
+  ypos 2337
+ }
+push $N334fdc00
+ Dot {
+  name Dot5
+  xpos 2133
+  ypos 1055
+ }
+set N347f9c00 [stack 0]
+push $N347f8800
+ Difference {
+  inputs 2
+  name Difference1
+  xpos 1700
+  ypos 1046
+ }
+ Expression {
+  expr3 "a<0.0001/val_mult ? a:1"
+  name Expression1
+  xpos 1700
+  ypos 1136
+  addUserKnob {20 User}
+  addUserKnob {7 val_mult l valmult R 0 10}
+  val_mult {{parent.comp_gain}}
+ }
+ Blur {
+  size 2
+  name Blur3
+  xpos 1700
+  ypos 1208
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {1 0 0.7499961853 1}
+  name Constant1
+  xpos 1946
+  ypos 1133
+ }
+ HueShift {
+  hue_rotation {{parent.comp_color}}
+  name HueShift1
+  xpos 1946
+  ypos 1235
+ }
+ Dot {
+  name Dot14
+  xpos 1980
+  ypos 1364
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge3
+  xpos 1700
+  ypos 1361
+ }
+ Dot {
+  name Dot13
+  xpos 1734
+  ypos 1921
+ }
+push $N347f8400
+ Dot {
+  name Dot7
+  xpos 1627
+  ypos 716
+ }
+set N34850000 [stack 0]
+ Dot {
+  name Dot18
+  xpos 1517
+  ypos 716
+ }
+ Dot {
+  name Dot21
+  xpos 1517
+  ypos 1694
+ }
+push $N347f9c00
+ Dot {
+  name Dot19
+  xpos 2133
+  ypos 1599
+ }
+set N34850c00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge6
+  xpos 2099
+  ypos 1676
+ }
+ Grade {
+  white 50
+  name Grade4
+  xpos 2099
+  ypos 1771
+ }
+push $N34850000
+push $N34850c00
+ Switch {
+  inputs 2
+  which {{parent.plate_Compare}}
+  name Switch4
+  xpos 1593
+  ypos 1596
+  disable {{parent.plate_dif_comp}}
+ }
+ Switch {
+  inputs 2
+  which {{parent.plate_dif_comp}}
+  name Switch5
+  xpos 1593
+  ypos 1771
+  disable {{parent.color_overley}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos 1593
+  ypos 1918
+  disable {{!parent.color_overley}}
+ }
+ Switch {
+  inputs 5
+  which {{check}}
+  name Switch3
+  xpos 1593
+  ypos 2457
+ }
+ Output {
+  name Output1
+  xpos 1593
+  ypos 2590
+ }
+end_group

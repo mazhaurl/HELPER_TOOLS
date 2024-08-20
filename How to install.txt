@@ -1,0 +1,20 @@
+Please follow step by step:
+
+1. copy HELPER_TOOLS foldelr that you downloaded, and paste it  in your .nuke folder.
+
+2. open your init.py and add this line of code : nuke.pluginAddPath("./HELPER_TOOLS")
+
+3.Open Menu.py file from HELPER_TOOLS, and edit your file path :
+  
+
+example'''''
+#change your dir here
+
+Win_Dir = 'C:/Users/shuvo/.nuke' 
+MacOSX_Dir = 'mac'
+Linux_Dir = "/home/shuvo/.nuke"
+
+'''''
+if windows, then change windows dir, if mac then change mac dir if linux then change linux dir.
+
+Thanks

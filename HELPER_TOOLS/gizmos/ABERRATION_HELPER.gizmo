@@ -1,0 +1,296 @@
+#! C:/Program Files/Nuke15.1v1/nuke-15.1.1.dll -nx
+version 15.1 v1
+Gizmo {
+ knobChanged "\n\nnode = nuke.thisNode()\n\nknob_math = node\['math'].value()\n\n\nif knob_math == 'Position' :\n    node\['two_d'].setVisible(True)\n    node\['x'].setVisible(True)\n    node\['y'].setVisible(True)\n    node\['global_value'].setVisible(False)\n    node\['three_d'].setVisible(False)\n    node\['coverage_map'].setVisible(False)\n    node\['adjust_coverage'].setVisible(False)\n    node\['abr_value'].setVisible(False)\n\nelif knob_math == 'Scale' :\n\n    node\['two_d'].setVisible(True)\n    node\['x'].setVisible(False)\n    node\['y'].setVisible(False)\n    node\['global_value'].setVisible(True)\n    node\['three_d'].setVisible(False)\n    node\['coverage_map'].setVisible(False)\n    node\['adjust_coverage'].setVisible(False)\n    node\['abr_value'].setVisible(False)\n\n\n\nelif knob_math == 'God Rays' :\n\n    node\['two_d'].setVisible(True)\n    node\['x'].setVisible(False)\n    node\['y'].setVisible(False)\n    node\['global_value'].setVisible(True)\n    node\['three_d'].setVisible(False)\n    node\['coverage_map'].setVisible(False)\n    node\['adjust_coverage'].setVisible(False)\n    node\['abr_value'].setVisible(False)\n\n\nelse:\n    cbox=node\['coverage_map'].value()\n    if cbox == True:\n            node\['adjust_coverage'].setVisible(True)\n    else:\n            node\['adjust_coverage'].setVisible(False)\n    node\['two_d'].setVisible(False)\n    node\['x'].setVisible(False)\n    node\['y'].setVisible(False)\n    node\['global_value'].setVisible(False)\n    node\['three_d'].setVisible(True)\n    node\['coverage_map'].setVisible(True)\n\n    node\['abr_value'].setVisible(True)\n\n\n\n\n\n\n"
+ tile_color 0x6a55ffff
+ note_font "Verdana Bold"
+ addUserKnob {20 User}
+ addUserKnob {4 math l Math M {Position Scale "God Rays" "Real Lens" "" "" "" "" "" ""}}
+ addUserKnob {26 two_d l 2D}
+ addUserKnob {7 x l "X Value" R -3 3}
+ addUserKnob {7 y l "Y Value" R -3 3}
+ addUserKnob {7 global_value l "Global Value" +HIDDEN R 1 1.5}
+ global_value 1
+ addUserKnob {26 three_d l "3D Real Lens" +HIDDEN}
+ addUserKnob {6 coverage_map l "Check Coverage Map" +HIDDEN +STARTLINE}
+ addUserKnob {7 adjust_coverage l "Adjust Coverage Map" +HIDDEN R 1 15}
+ adjust_coverage 3.4
+ addUserKnob {7 abr_value l "Global Value" +HIDDEN R 1 5}
+ abr_value 1
+ addUserKnob {26 ""}
+ addUserKnob {26 _1 l "" +STARTLINE T "\nDeveloped by Mazhaurl Islam Shuvo @2024\nwww.shuvofx.com"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0xaaaaaa00
+  label 3D
+  note_font_size 100
+  xpos 556
+  ypos -309
+  appearance Border
+  bdwidth 832
+  bdheight 1016
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  label "Credit:  cyril Conforti\nYoutube Link: https://www.youtube.com/@nuke_foundry_trick"
+  note_font "Verdana Bold"
+  note_font_size 20
+  xpos 549
+  ypos -406
+ }
+ Camera3 {
+  inputs 0
+  name Camera1
+  xpos 1199
+  ypos 9
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color 1
+  name Constant1
+  xpos 970
+  ypos -255
+ }
+set N7fd98c00 [stack 0]
+ Grid {
+  premult rgba
+  number 50
+  size 2
+  translate {{input.width/2} {input.height/2}}
+  color {0 0 0 1}
+  color_panelDropped true
+  name Grid1
+  xpos 1121
+  ypos -159
+ }
+push $N7fd98c00
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos 970
+  ypos -154
+ }
+ Remove {
+  channels alpha
+  name Remove1
+  xpos 970
+  ypos -130
+ }
+ Sphere {
+  translate {0 0 {adjust_coverage*-1 x1 -0.1849999875}}
+  scaling {1 1 0.2}
+  name Sphere1
+  xpos 970
+  ypos -87
+ }
+ Input {
+  inputs 0
+  name Inputimg
+  xpos -90
+  ypos -88
+ }
+ Dot {
+  name Dot1
+  xpos -56
+  ypos -32
+ }
+set N7fdfe400 [stack 0]
+ Dot {
+  name Dot2
+  xpos 178
+  ypos -32
+ }
+set N7fdfe800 [stack 0]
+ Dot {
+  name Dot4
+  xpos 356
+  ypos -32
+ }
+set N7fdfec00 [stack 0]
+ Dot {
+  name Dot8
+  xpos 619
+  ypos -32
+ }
+set N7fdff000 [stack 0]
+ Dot {
+  name Dot6
+  xpos 754
+  ypos -32
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 black -1 -1 rgba.green 0 1 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3 black -1 -1 rgba.red 0 0"
+  name Shuffle1
+  xpos 720
+  ypos 30
+ }
+add_layer {N N.red N.green N.blue}
+ ScanlineRender {
+  inputs 3
+  conservative_shader_sampling false
+  motion_vectors_type distance
+  output_shader_vectors true
+  N_channel N
+  name ScanlineRender1
+  xpos 970
+  ypos 30
+ }
+set N7fdffc00 [stack 0]
+ Dot {
+  name Dot10
+  xpos 819
+  ypos 79
+ }
+ Dot {
+  name Dot9
+  xpos 819
+  ypos 554
+ }
+push $N7fdffc00
+ Shuffle2 {
+  fromInput1 {{0} B}
+  in1 N
+  fromInput2 {{0} B}
+  mappings "4 black -1 -1 rgba.alpha 0 3 N.red 0 0 rgba.red 0 0 N.green 0 1 rgba.green 0 1 N.blue 0 2 rgba.blue 0 2"
+  name Shuffle3
+  xpos 970
+  ypos 91
+ }
+ Dot {
+  name Dot7
+  xpos 1004
+  ypos 196
+ }
+push $N7fdff000
+ Copy {
+  inputs 2
+  from0 N.red
+  to0 forward.u
+  from1 rgba.green
+  to1 forward.v
+  from2 rgba.blue
+  to2 mask.a
+  name Copy1
+  xpos 585
+  ypos 175
+ }
+ IDistort {
+  channels {rgba.red -rgba.green -rgba.blue}
+  uv forward
+  uv_scale {{abr_value}}
+  name IDistort1_RED
+  xpos 585
+  ypos 337
+ }
+ IDistort {
+  channels {-rgba.red -rgba.green rgba.blue}
+  uv forward
+  uv_scale {{1/parent.IDistort1_RED.uv_scale}}
+  name IDistort2_BLUE
+  xpos 585
+  ypos 478
+ }
+push $N7fdfec00
+ GodRays {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  scale {{parent.global_value}}
+  center {{input.width/2} {input.height/2}}
+  name bossGodRays1
+  xpos 322
+  ypos 24
+ }
+ GodRays {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  scale {{parent.bossGodRays1.scale/1}}
+  center {{input.width/2} {input.height/2}}
+  name slaveGodRays2
+  xpos 322
+  ypos 116
+ }
+ Dot {
+  name Dot5
+  xpos 356
+  ypos 487
+ }
+push $N7fdfe800
+ TransformMasked {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  scale {{parent.global_value}}
+  center {{input.width/2} {input.height/2}}
+  name bossT1
+  xpos 144
+  ypos 19
+ }
+ TransformMasked {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  scale {{parent.bossT1.scale/1}}
+  center {{input.width/2} {input.height/2}}
+  name slaveT1
+  xpos 144
+  ypos 104
+ }
+ Dot {
+  name Dot3
+  xpos 178
+  ypos 487
+ }
+push $N7fdfe400
+ TransformMasked {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  translate {{parent.x} {parent.y}}
+  center {{input.width/2} {input.height/2}}
+  name bossT
+  xpos -90
+  ypos 22
+ }
+ TransformMasked {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  translate {{parent.bossT.translate.x} {parent.bossT.translate.y}}
+  center {{input.width/2} {input.height/2}}
+  name slaveT
+  xpos -90
+  ypos 107
+ }
+ Switch {
+  inputs 4
+  which {{parent.math}}
+  patterns {
+   {i0 ""}
+   {i1 ""}
+   {i2 ""}
+   {i3 ""}
+  }
+  name Switch1
+  xpos -90
+  ypos 484
+ }
+ Switch {
+  inputs 2
+  which {{coverage_map}}
+  patterns {
+   {i0 ""}
+   {i1 ""}
+  }
+  name Switch2
+  xpos -90
+  ypos 563
+ }
+ Output {
+  name Output1
+  xpos -90
+  ypos 824
+ }
+ Viewer {
+  frame_range 1-100
+  monitorOutNDISenderName "NukeX - ABERRATION_HELPER_v2 - Viewer1"
+  name Viewer1
+  xpos 1943
+  ypos 616
+ }
+end_group
